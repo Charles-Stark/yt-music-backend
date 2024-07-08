@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Song {
+  id      Int    @id @default(autoincrement())
+  creator String @db.VarChar(255)
+  name    String @db.VarChar(255)
+  img     String
+  time    Int
+}
+
+model Media {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+  img  String
+  type String @db.VarChar(20)
+  note String @db.VarChar(20)
+  num  String @db.VarChar(20)
+}
