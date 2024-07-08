@@ -11,14 +11,16 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.get('/song', async (req: Request, res: Response) => {
-  const songList = await prisma.song.findMany()
+  const songList = await prisma.song.findMany({
+    orderBy: {
+      id: 'asc',
+    }
+  })
   res.json(songList)
 })
 
 app.get('/media', async (req: Request, res: Response) => {
   try {
-    console.log(req.query)
-
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;
 
@@ -28,6 +30,9 @@ app.get('/media', async (req: Request, res: Response) => {
     const mediaList = await prisma.media.findMany({
       skip: (page - 1) * pageSize,
       take: pageSize,
+      orderBy: {
+        id: 'asc',
+      }
     });
 
     res.json({
