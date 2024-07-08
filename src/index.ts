@@ -2,7 +2,7 @@ import express, {Request, Response} from 'express';
 import {PrismaClient} from "@prisma/client";
 
 const app = express();
-const port = 2999;
+const port = 3000;
 
 const prisma = new PrismaClient()
 
