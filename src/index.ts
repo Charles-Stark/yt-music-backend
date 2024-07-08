@@ -2,7 +2,7 @@ import express, {Request, Response} from 'express';
 import {PrismaClient} from "@prisma/client";
 
 const app = express();
-const port = 3000;
+const port = 2999;
 
 const prisma = new PrismaClient()
 
@@ -18,7 +18,7 @@ app.get('/song', async (req: Request, res: Response) => {
 app.get('/media', async (req: Request, res: Response) => {
   try {
     console.log(req.query)
-    
+
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;
 
