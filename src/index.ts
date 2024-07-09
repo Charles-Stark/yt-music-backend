@@ -56,6 +56,20 @@ app.get('/media', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/search', async (req: Request, res: Response) => {
+  const keyword = req.query.keyword as string;
+
+  const songs = await prisma.song.findMany({
+    where: {
+      OR: [
+        {name: {contains: keyword, mode: 'insensitive'}},
+        {creator: {contains: keyword, mode: 'insensitive'}},
+      ]
+    }
+  })
+  res.json(songs)
+})
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
