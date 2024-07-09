@@ -1,5 +1,5 @@
 import express, {Request, Response} from 'express';
-import {PrismaClient} from "@prisma/client";
+import {Prisma, PrismaClient} from "@prisma/client";
 
 const app = express();
 const port = 2999;
@@ -17,6 +17,14 @@ app.get('/song', async (req: Request, res: Response) => {
     }
   })
   res.json(songList)
+})
+
+app.get('/randomSongs', async (req: Request, res: Response) => {
+  const count = parseInt(req.query.count as string) || 5;
+  const songs = await prisma.$queryRaw(
+    Prisma.sql`SELECT * FROM "Song" ORDER BY RANDOM() LIMIT ${count};`
+  )
+  res.json(songs)
 })
 
 app.get('/media', async (req: Request, res: Response) => {
