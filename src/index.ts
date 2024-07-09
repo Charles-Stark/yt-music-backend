@@ -60,6 +60,7 @@ app.get('/search', async (req: Request, res: Response) => {
   const keyword = req.query.keyword as string;
   if (keyword === '') {
     res.json([])
+    return
   }
 
   const songs = await prisma.song.findMany({
